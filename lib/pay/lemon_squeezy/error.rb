@@ -1,5 +1,5 @@
 module Pay
-  module FakeProcessor
+  module LemonSqueezy
     class Error < Pay::Error
     end
   end

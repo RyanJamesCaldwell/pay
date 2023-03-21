@@ -1,5 +1,5 @@
 module Pay
-  module FakeProcessor
+  module LemonSqueezy
     class Subscription
       attr_reader :pay_subscription
 

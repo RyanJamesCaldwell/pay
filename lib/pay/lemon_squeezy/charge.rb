@@ -1,5 +1,5 @@
 module Pay
-  module FakeProcessor
+  module LemonSqueezy
     class Charge
       attr_reader :pay_charge
 

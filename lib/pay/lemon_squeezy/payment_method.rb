@@ -1,5 +1,5 @@
 module Pay
-  module FakeProcessor
+  module LemonSqueezy
     class PaymentMethod
       attr_reader :pay_payment_method
 

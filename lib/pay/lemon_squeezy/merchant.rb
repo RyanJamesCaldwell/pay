@@ -1,5 +1,5 @@
 module Pay
-  module FakeProcessor
+  module LemonSqueezy
     class Merchant
       attr_reader :pay_merchant
       delegate :processor_id, to: :pay_merchant

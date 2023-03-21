@@ -17,4 +17,9 @@ class WebhookRoutesTest < ActionDispatch::IntegrationTest
     post "/pay/webhooks/paddle", as: :json
     assert_response :bad_request
   end
+
+  test "lemon_squeezy webhook routes get mounted correctly" do
+    post "/pay/webhooks/lemon_squeezy", as: :json
+    assert_response :bad_request
+  end
 end

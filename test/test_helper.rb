@@ -12,6 +12,9 @@ paddle_public_key = OpenSSL::PKey::RSA.new(File.read("test/support/fixtures/padd
 ENV["PADDLE_PUBLIC_KEY_BASE64"] = Base64.encode64(paddle_public_key.to_der)
 ENV["PADDLE_ENVIRONMENT"] = "sandbox"
 
+ENV["LEMON_SQUEEZY_ENVIRONMENT"] = "test"
+ENV["LEMON_SQUEEZY_SIGNING_SECRET"] ||= "fake_signing_secret"
+
 require "braintree"
 require "stripe"
 require "paddle_pay"
@@ -53,6 +56,13 @@ class ActiveSupport::TestCase
   def braintree_event(name)
     raw = fake_event "braintree/#{name}"
     Pay.braintree_gateway.webhook_notification.parse(raw["bt_signature"], raw["bt_payload"])
+  end
+
+  def lemon_squeezy_request_signature_for(fixture_path)
+    payload_json = File.read(fixture_path)
+
+    hmac = OpenSSL::HMAC.new(Pay::LemonSqueezy.signing_secret, OpenSSL::Digest::SHA256.new)
+    hmac.update(payload_json).hexdigest
   end
 
   def paddle_event(name)

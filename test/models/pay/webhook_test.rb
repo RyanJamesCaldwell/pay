@@ -21,4 +21,11 @@ class Pay::Webhook::Test < ActiveSupport::TestCase
     assert_equal ::Braintree::WebhookNotification, event.class
     assert_equal "f6rnpm", event.subscription.id
   end
+
+  test "rehydrates a LemonSqueezy event" do
+    pay_webhook = Pay::Webhook.create processor: :lemon_squeezy, event_type: :example, event: fake_event("lemon_squeezy/order_created")
+    event = pay_webhook.rehydrated_event
+    assert_equal OpenStruct, event.class
+    assert_equal 2016, event.data.attributes.total_usd
+  end
 end

@@ -23,12 +23,14 @@ module Pay
       Pay::Stripe.configure_webhooks if Pay::Stripe.enabled?
       Pay::Braintree.configure_webhooks if Pay::Braintree.enabled?
       Pay::Paddle.configure_webhooks if Pay::Paddle.enabled?
+      Pay::LemonSqueezy.configure_webhooks if Pay::LemonSqueezy.enabled?
     end
 
     config.to_prepare do
       Pay::Stripe.setup if Pay::Stripe.enabled?
       Pay::Braintree.setup if Pay::Braintree.enabled?
       Pay::Paddle.setup if Pay::Paddle.enabled?
+      Pay::LemonSqueezy.setup if Pay::LemonSqueezy.enabled?
 
       if defined?(::Receipts::VERSION)
         if Pay::Engine.version_matches?(required: "~> 2", current: ::Receipts::VERSION)
